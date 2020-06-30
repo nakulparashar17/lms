@@ -40,7 +40,7 @@ public class UsersController {
 		return user;
 	}
 
-	@PostMapping(path="/user",consumes = "application/json")
+	@PostMapping(path="/users",consumes = "application/json")
 	public String addUsers(@RequestBody Users user)
 	{
 		Users isExist=userser.findUsersByEmail(user.getEmail());
@@ -63,7 +63,8 @@ public class UsersController {
 	  
 	  @RequestMapping(method=RequestMethod.DELETE, value="/users/{id}")
 	    public String delete(@PathVariable String id) {
-		  return userser.deleteEmp(id);
+		  userser.deleteEmp(id);
+		  return "user deleted";
 	    }
 	
 }

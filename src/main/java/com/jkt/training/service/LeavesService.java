@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jkt.training.entity.Leaves;
+import com.jkt.training.entity.Leaves_Types;
 import com.jkt.training.entity.Users;
 import com.jkt.training.exception.NotFoundException;
 import com.jkt.training.repository.LeavesRepository;
+import com.jkt.training.repository.LeavesTypesRepository;
 import com.jkt.training.repository.Usersrepository;
 
 @Service
@@ -20,17 +22,29 @@ public class LeavesService {
 	private LeavesRepository repository;
 	
 	@Autowired
+	private LeavesTypesRepository ltyperepo;
+	
+	@Autowired
 	private Usersrepository userrepo;
 	
 	//FOR POST/PUT MAPPING
 	@SuppressWarnings("deprecation")
-	public Leaves applyLeaves(Leaves leaves) {
+	public Leaves applyLeaves(Leaves leaves,int typeid) {
 		if(!leaves.getFromDate().equals(null)&&!leaves.getToDate().equals(null)
 			&&!leaves.getReason().equals(null)&&!leaves.getType().equals(null)) {
 				int duration=leaves.getToDate().getDate()-leaves.getFromDate().getDate();
 				leaves.setDuration(duration+1);
+				Optional<Leaves_Types> type=ltyperepo.findById(typeid);
+				Leaves_Types t=type.get();
+				if(t.getMax_count()<duration) {
+					throw new NotFoundException("exceed the fix count(not applied)!!");
+				}
+				else {
+				leaves.setTaken(duration);	
+				leaves.setType(t);
 				leaves.setActive(true);
 				return repository.save(leaves);
+				}
 		}
 		else {
 			throw new NotFoundException("Some field data is missing!!");
@@ -53,7 +67,6 @@ public class LeavesService {
 			throw new NotFoundException("Leave Record with id="+id+" not exist!");
 	}
 	
-	//FOR DELETEMAPPING
 	public List<Leaves> getAllActiveLeaves() {
 		 return repository.getAllActiveLeaves();
 	}

@@ -29,6 +29,7 @@ public class Leaves {
 	private Date toDate;
 	private int duration;
 	private boolean acceptRejectFlag;
+	private int taken;
 	private boolean active;
 	
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
@@ -38,10 +39,9 @@ public class Leaves {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
 
 	public Leaves(int id, Leaves_Types type, String reason, Date fromDate, Date toDate, int duration,
-			boolean acceptRejectFlag, boolean active,String eid) {
+			boolean acceptRejectFlag, int taken, boolean active, Users users) {
 		super();
 		this.id = id;
 		this.type = type;
@@ -50,8 +50,17 @@ public class Leaves {
 		this.toDate = toDate;
 		this.duration = duration;
 		this.acceptRejectFlag = acceptRejectFlag;
+		this.taken = taken;
 		this.active = active;
-		this.users = new Users(eid);
+		this.users = users;
+	}
+	
+	public int getTaken() {
+		return taken;
+	}
+
+	public void setTaken(int taken) {
+		this.taken = taken;
 	}
 
 	public int getId() {
@@ -135,8 +144,5 @@ public class Leaves {
 				+ toDate + ", duration=" + duration + ", acceptRejectFlag=" + acceptRejectFlag + ", active=" + active
 				+ ", users=" + users + "]";
 	}
-
-	
-	
 
 }

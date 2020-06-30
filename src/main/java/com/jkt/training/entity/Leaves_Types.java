@@ -1,15 +1,12 @@
 package com.jkt.training.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Leaves_Types {
 
 	@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY )
 	private int id;
 	
 	private String leave_name;
@@ -51,17 +48,4 @@ public class Leaves_Types {
 	public void setMax_count(int max_count) {
 		this.max_count = max_count;
 	}
-//	{
-//	if(id==1)
-//	{
-//		leave_name="Earned Leave";
-//		max_count=2;
-//	}
-//	else if(id==2)
-//	{
-//		leave_name="Birthday Leave";
-//		max_count=1;
-//	}
-//	
-//}
 }

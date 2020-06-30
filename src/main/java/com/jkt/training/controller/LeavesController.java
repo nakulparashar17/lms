@@ -18,15 +18,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.jkt.training.entity.Leaves;
 import com.jkt.training.entity.Users;
-import com.jkt.training.repository.LeavesRepository;
-import com.jkt.training.repository.Usersrepository;
 import com.jkt.training.service.LeavesService;
-import com.jkt.training.service.UsersService;
-
-
 
 @CrossOrigin(origins = "http://localhost:9000")
 @RestController
@@ -82,26 +76,26 @@ public class LeavesController {
 		return service.getAllRejectedLeaves();
 	}
 	
-	@PostMapping(path = "/leaves",consumes = "application/json")
-	public ResponseEntity<Leaves> applyLeaves(@Valid @RequestBody Leaves leaves)throws URISyntaxException{
-		Leaves result=service.applyLeaves(leaves);
+	@PostMapping(path = "/leaves/{typeid}",consumes = "application/json")
+	public ResponseEntity<Leaves> applyLeaves(@Valid @RequestBody Leaves leaves,@PathVariable int typeid)throws URISyntaxException{
+		Leaves result=service.applyLeaves(leaves,typeid);
 		return ResponseEntity.created(new URI("/api/leaves"+result.getId())).body(result);
 
 	}
 	
 	
 	//employee with leaves
-	@PostMapping(path = "/users/{id}/leaves",consumes = "application/json")
-	public ResponseEntity<Leaves> applyEmployeeLeaves(@Valid @RequestBody Leaves leaves,@PathVariable String id)throws URISyntaxException{
+	@PostMapping(path = "/users/{id}/leaves/{typeid}",consumes = "application/json")
+	public ResponseEntity<Leaves> applyEmployeeLeaves(@Valid @RequestBody Leaves leaves,@PathVariable String id,@PathVariable int typeid)throws URISyntaxException{
 		leaves.setUsers(new Users(id));
-		Leaves result=service.applyLeaves(leaves);
+		Leaves result=service.applyLeaves(leaves,typeid);
 		return ResponseEntity.created(new URI("/api/leaves"+result.getId())).body(result);
 	}
 	
 	@PutMapping(path = "/leaves/{l_id}",consumes = "application/json")
 	ResponseEntity<Leaves> updateLeaves(@Valid @RequestBody Leaves leaves,@PathVariable int l_id){
 		//LeavesTrack result=service.updateLeaves(leaves,l_id);;
-		Leaves result=service.applyLeaves(leaves);
+		Leaves result=service.applyLeaves(leaves,l_id);
 		return ResponseEntity.ok().body(result);
 	}
 	
@@ -109,7 +103,7 @@ public class LeavesController {
 	ResponseEntity<Leaves> updateLeavesByEmployeeId(@Valid @RequestBody Leaves leaves,@PathVariable int l_id,@PathVariable String id){
 		//LeavesTrack result=service.updateLeaves(leaves,l_id);;
 		leaves.setUsers(new Users(id));
-		Leaves result=service.applyLeaves(leaves);
+		Leaves result=service.applyLeaves(leaves,l_id);
 		return ResponseEntity.ok().body(result);
 	}
 	

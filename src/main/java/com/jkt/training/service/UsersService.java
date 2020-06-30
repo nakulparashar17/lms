@@ -59,15 +59,13 @@ public class UsersService {
 	
 	}
 	
-	public String deleteEmp(String id)
+	public void deleteEmp(String id)
 	{
 //		Users user=userrepo.getOne(EmpId);
 //		userrepo.delete(user);
 		 Optional<Users> optuser = userrepo.findById(id);
 	        Users user = optuser.get();
-	        userrepo.delete(user);
-
-	        return "";
+	        userrepo.delete(user);     
 	}
 
 	
