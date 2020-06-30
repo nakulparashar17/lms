@@ -40,7 +40,33 @@ public class LeavesService {
 					throw new NotFoundException("exceed the fix count(not applied)!!");
 				}
 				else {
-				leaves.setTaken(duration);	
+				leaves.setTaken(duration+1);	
+				leaves.setType(t);
+				leaves.setActive(true);
+				return repository.save(leaves);
+				}
+		}
+		else {
+			throw new NotFoundException("Some field data is missing!!");
+		}
+	}
+	
+	@SuppressWarnings("deprecation")
+	public Leaves applyLeavesUser(Leaves leaves,int typeid,String uid) {
+		if(!leaves.getFromDate().equals(null)&&!leaves.getToDate().equals(null)
+			&&!leaves.getReason().equals(null)&&!leaves.getType().equals(null)) {
+				int duration=leaves.getToDate().getDate()-leaves.getFromDate().getDate();
+				leaves.setDuration(duration+1);
+				Optional<Leaves_Types> type=ltyperepo.findById(typeid);
+				Optional<Users> user=userrepo.findById(uid);
+				leaves.setTaken(duration+1);
+				Users u=user.get();
+				Leaves_Types t=type.get();
+				if(t.getMax_count()<(duration+1)) {
+					throw new NotFoundException("exceed the fix count(not applied)!!");
+				}
+				else {	
+				leaves.setUsers(u);
 				leaves.setType(t);
 				leaves.setActive(true);
 				return repository.save(leaves);
@@ -60,9 +86,19 @@ public class LeavesService {
 	}
 	
 	//FOR GET MAPPING (BY ID)
-	public Optional<Leaves> getLeavesById(int id) {
-		if(repository.findById(id).isPresent())
-			return repository.findById(id);
+	public Leaves getLeavesById(int id) {
+		Optional<Leaves> l=repository.findById(id);
+		Leaves leaves=l.get();
+		if(leaves!=null)
+			return leaves;
+		else
+			throw new NotFoundException("Leave Record with id="+id+" not exist!");
+	}
+	
+	public Optional<Leaves> getLeavesByIdUser(int id) {
+		Optional<Leaves> l=repository.findById(id);
+		if(l.isPresent())
+			return l;
 		else
 			throw new NotFoundException("Leave Record with id="+id+" not exist!");
 	}
@@ -90,7 +126,7 @@ public class LeavesService {
 	
 	public Leaves rejectApproved(int id,String flag)
 	{
-		Optional<Leaves> lea=getLeavesById(id);
+		Optional<Leaves> lea=getLeavesByIdUser(id);
 		System.out.println(flag);
 		Leaves l=lea.get();
 		System.out.print(l.getReason());

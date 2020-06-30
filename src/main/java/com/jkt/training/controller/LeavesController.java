@@ -49,14 +49,14 @@ public class LeavesController {
 	
 	@GetMapping("users/{id}/leaves/{l_id}")
 	public ResponseEntity<?> getLeavesById(@PathVariable int l_id) {
-		Optional<Leaves> leaves= service.getLeavesById(l_id);
+		Optional<Leaves> leaves= service.getLeavesByIdUser(l_id);
 		return leaves.map(response->ResponseEntity.ok().body(response))
 			   .orElse(new ResponseEntity<Leaves>(HttpStatus.NOT_FOUND));
 	}
 	
 	@GetMapping("/leaves/{l_id}")
-	public Optional<Leaves> getLeaveById(@PathVariable int l_id) {
-		Optional<Leaves> leaves= service.getLeavesById(l_id);
+	public Leaves getLeaveById(@PathVariable int l_id) {
+		Leaves leaves= service.getLeavesById(l_id);
 		return leaves;
 	}
 	
@@ -87,8 +87,7 @@ public class LeavesController {
 	//employee with leaves
 	@PostMapping(path = "/users/{id}/leaves/{typeid}",consumes = "application/json")
 	public ResponseEntity<Leaves> applyEmployeeLeaves(@Valid @RequestBody Leaves leaves,@PathVariable String id,@PathVariable int typeid)throws URISyntaxException{
-		leaves.setUsers(new Users(id));
-		Leaves result=service.applyLeaves(leaves,typeid);
+		Leaves result=service.applyLeavesUser(leaves,typeid,id);
 		return ResponseEntity.created(new URI("/api/leaves"+result.getId())).body(result);
 	}
 	
