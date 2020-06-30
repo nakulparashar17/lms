@@ -32,7 +32,21 @@ public class LeavesTypesService {
 		return ltrepo.findById(id);
 	}
 	
+	
 	public List<Leaves_Types> getAllType(){
 		return ltrepo.findAll();
+	}
+	
+	public void deleteType(int id) {
+		Leaves_Types type=ltrepo.getOne(id);
+		ltrepo.delete(type);
+	}
+	
+	public void updateType(Leaves_Types l) {
+		ltrepo.save(l);
+	}
+	
+	public void addType(Leaves_Types l) {
+		ltrepo.save(l);
 	}
 }

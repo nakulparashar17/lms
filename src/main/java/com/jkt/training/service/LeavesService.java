@@ -126,13 +126,13 @@ public class LeavesService {
 	
 	public Leaves rejectApproved(int id,String flag)
 	{
-		Optional<Leaves> lea=getLeavesByIdUser(id);
+		Optional<Leaves> lea=repository.findById(id);
 		System.out.println(flag);
 		Leaves l=lea.get();
 		System.out.print(l.getReason());
 		Users user=l.getUsers();
 		//Users user=l.getUsers(user);
-		if(flag.equals("success")) {
+		if(flag.equals("accept")) {
 			//emp.setEarnedleaves(emp.getEarnedleaves()-l.getDuration());
 			userrepo.save(user);
 			l.setUsers(user);
