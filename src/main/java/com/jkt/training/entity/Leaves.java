@@ -2,7 +2,9 @@ package com.jkt.training.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,7 +20,7 @@ public class Leaves {
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
 	private int id;
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	private Leaves_Types type;
 	private String reason;
 	@Temporal(TemporalType.DATE)
@@ -29,16 +31,17 @@ public class Leaves {
 	private boolean acceptRejectFlag;
 	private boolean active;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	private Users users;
 	
 	public Leaves() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 
 	public Leaves(int id, Leaves_Types type, String reason, Date fromDate, Date toDate, int duration,
-			boolean acceptRejectFlag, boolean active) {
+			boolean acceptRejectFlag, boolean active,String eid) {
 		super();
 		this.id = id;
 		this.type = type;
@@ -48,6 +51,7 @@ public class Leaves {
 		this.duration = duration;
 		this.acceptRejectFlag = acceptRejectFlag;
 		this.active = active;
+		this.users = new Users(eid);
 	}
 
 	public int getId() {
@@ -113,6 +117,25 @@ public class Leaves {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
+
+
+	public Users getUsers() {
+		return users;
+	}
+
+
+	public void setUsers(Users users) {
+		this.users = users;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Leaves [id=" + id + ", type=" + type + ", reason=" + reason + ", fromDate=" + fromDate + ", toDate="
+				+ toDate + ", duration=" + duration + ", acceptRejectFlag=" + acceptRejectFlag + ", active=" + active
+				+ ", users=" + users + "]";
+	}
+
 	
 	
 

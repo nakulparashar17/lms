@@ -9,7 +9,7 @@ import javax.persistence.Id;
 public class Leaves_Types {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY )
+	//@GeneratedValue(strategy = GenerationType.IDENTITY )
 	private int id;
 	
 	private String leave_name;
@@ -51,6 +51,17 @@ public class Leaves_Types {
 	public void setMax_count(int max_count) {
 		this.max_count = max_count;
 	}
-	
-	
+//	{
+//	if(id==1)
+//	{
+//		leave_name="Earned Leave";
+//		max_count=2;
+//	}
+//	else if(id==2)
+//	{
+//		leave_name="Birthday Leave";
+//		max_count=1;
+//	}
+//	
+//}
 }

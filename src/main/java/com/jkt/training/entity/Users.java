@@ -6,11 +6,14 @@ import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
+@Table(name="users")
 public class Users {
+	
 	
 	@Id
 	@Column(name="username")
@@ -20,7 +23,7 @@ public class Users {
 	
 	private char enabled;
 	
-  	@NotEmpty(message = "Email cannot be Empty!!")
+ 	@NotEmpty(message = "Email cannot be Empty!!")
   	@Email(message = "Please provide a valid email!")
 	private String email;
 
@@ -35,7 +38,7 @@ public class Users {
    @Column(name = "lineManager")
    private String lineManager;
    
-   @Column(name = "workingStatus")
+  @Column(name = "workingStatus")
    private String workingStatus;
    
    @Column(name = "isLineManager")
@@ -45,10 +48,10 @@ public class Users {
    
    private int defaulter_email_reminder;
    
-   @Column(name = "createdDate")
+    @Column(name = "createdDate")
    Date createdDate;
-   
-   @Column(name = "joiningDate")
+    
+  @Column(name = "joiningDate")
    Date joiningDate;
    
    @Column(name = "deactivatedDate")
@@ -64,7 +67,12 @@ public class Users {
 	
     public Users() {
 		super();
-		// TODO Auto-generated constructor stub
+				// TODO Auto-generated constructor stub
+	}
+
+	public Users(String id) 
+	{
+		
 	}
 
 	public Users(String id, @NotEmpty(message = "Password cannot be Empty!!") String password, char enabled,
@@ -189,11 +197,11 @@ public class Users {
 		this.emp_category = emp_category;
 	}
 
-	public String getLineManager() {
+	public String getlineManager() {
 		return lineManager;
 	}
 
-	public void setLineManager(String lineManager) {
+	public void setlineManager(String lineManager) {
 		this.lineManager = lineManager;
 	}
 
@@ -201,7 +209,7 @@ public class Users {
 		return workingStatus;
 	}
 
-	public void setWorkingStatus(String workingStatus) {
+	public void setWorkStatus(String workingStatus) {
 		this.workingStatus = workingStatus;
 	}
 
@@ -292,5 +300,20 @@ public class Users {
 	public void setMobile_attendance(String mobile_attendance) {
 		this.mobile_attendance = mobile_attendance;
 	}
+
+	@Override
+	public String toString() {
+		return "Users [id=" + id + ", password=" + password + ", enabled=" + enabled + ", email=" + email
+				+ ", first_name=" + first_name + ", last_name=" + last_name + ", updated_by=" + updated_by
+				+ ", updated_date=" + updated_date + ", department_id=" + department_id + ", base_location="
+				+ base_location + ", emp_category=" + emp_category + ", lineManager=" + lineManager + ", workingStatus="
+				+ workingStatus + ", isLineManager=" + isLineManager + ", skillset_email_reminder="
+				+ skillset_email_reminder + ", defaulter_email_reminder=" + defaulter_email_reminder + ", createdDate="
+				+ createdDate + ", joiningDate=" + joiningDate + ", deactivatedDate=" + deactivatedDate
+				+ ", updatedCV_date=" + updatedCV_date + ", lastMailSent=" + lastMailSent + ", resume_status="
+				+ resume_status + ", manager_notes=" + manager_notes + ", mobile_attendance=" + mobile_attendance + "]";
+	}
+
+	
 
 }
