@@ -91,6 +91,12 @@ public class LeavesController {
 		return ResponseEntity.created(new URI("/api/leaves"+result.getId())).body(result);
 	}
 	
+	@PostMapping(path = "/users/{id}/leaves",consumes = "application/json")
+	public ResponseEntity<Leaves> applyEmployeeLeave(@Valid @RequestBody Leaves leaves,@PathVariable String id)throws URISyntaxException{
+		Leaves result=service.applyLeavesUsers(leaves,id);
+		return ResponseEntity.created(new URI("/api/leaves"+result.getId())).body(result);
+	}
+	
 	@PutMapping(path = "/leaves/{l_id}",consumes = "application/json")
 	ResponseEntity<Leaves> updateLeaves(@Valid @RequestBody Leaves leaves,@PathVariable int l_id){
 		//LeavesTrack result=service.updateLeaves(leaves,l_id);;
