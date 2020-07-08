@@ -24,35 +24,69 @@ class Show extends Component {
             <
             div className = "panel-heading" >
             <
-            h3 className = "panel-title" > Employee Details < /h3>{" "} <
+            center > { " " } <
+            h3 className = "panel-title" > Employee Details < /h3> <
+            /center>{" "} <
             /div>{" "} <
-            div className = "panel-body" >
+            center >
             <
-            h4 > { " " } <
-            Link to = "/list" > { " " } <
-            span className = "glyphicon glyphicon-th-list" > < /span> Employees
+            h5 >
+            <
+            Link to = { `/list/${this.state.employee.id}` } >
+            <
+            span className = "glyphicon glyphicon-plus-sign" > < /span> Employees
             List { " " } <
             /Link>{" "} <
-            /h4>{" "} <
+            /h5>{" "} <
+            /center> <
+            h6 >
+            <
+            Link to = { `/approved/${this.state.employee.id}` } >
+            <
+            span className = "glyphicon glyphicon-plus-sign" > < /span> Approved
+            Leaves { " " } <
+            /Link>{" "} <
+            /h6>{" "} <
+            h6 >
+            <
+            Link to = { `/rejected/${this.state.employee.id}` } >
+            <
+            span className = "glyphicon glyphicon-plus-sign" > < /span> Rejected
+            Leaves { " " } <
+            /Link>{" "} <
+            /h6>{" "} <
+            h6 >
+            <
+            Link to = { `/activeleaves/${this.state.employee.id}` } >
+            <
+            span className = "glyphicon glyphicon-plus-sign" > < /span> Active
+            Leaves { " " } <
+            /Link>{" "} <
+            /h6>{" "} <
+            div className = "panel-body" >
+            <
+            center >
+            <
             dl >
             <
-            dt > EMPLOYEE ID: < /dt> <dd> {this.state.employee.id} </dd > { " " } <
-            dt > EMPLOYEE NAME: < /dt>{" "} <
+            dt > < /dt> <dt> </dt > < dt > EMPLOYEE ID: < /dt>{" "} <
+            dd > { this.state.employee.id } < /dd> <dt> EMPLOYEE NAME: </dt > { " " } <
             dd > { " " } {
                 this.state.employee.first_name +
                     " " +
                     this.state.employee.last_name
             } { " " } <
             /dd>{" "} <
-            dt > EMPLOYEE EMAIL: < /dt> <dd> {this.state.employee.email} </dd > { " " } <
-            dt > MANAGER ID: < /dt>{" "} <
+            dt > EMPLOYEE EMAIL: < /dt>{" "} <
+            dd > { this.state.employee.email } < /dd> <dt> MANAGER ID: </dt > { " " } <
             dd > { this.state.employee.lineManager } < /dd>{" "} <
             /dl>{" "} <
             Link to = { `/apply/${this.state.employee.id}` }
-            className = "btn btn-primary" >
+            className = "btn btn-success" >
             { " " }
             Apply Leave { " " } <
             /Link>{" "} <
+            /center>{" "} <
             /div>{" "} <
             /div>{" "} <
             /div>

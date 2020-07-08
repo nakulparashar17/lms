@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
-import { Link } from "react-router-dom";
 
 class ApplyLeave extends Component {
     constructor(props) {
@@ -13,6 +12,7 @@ class ApplyLeave extends Component {
             fromDate: new Date(),
             toDate: new Date(),
             isLoading: false,
+            applyStatus: false,
             Types: [],
         };
         this.handleDateChangefrom = this.handleDateChangefrom.bind(this);
@@ -48,16 +48,23 @@ class ApplyLeave extends Component {
         console.log(type);
 
         axios
-            .post("/users/" + this.props.match.params.id + "/leaves/" + type, {
+            .post("/users/" + this.newMethod() + "/leaves/" + type, {
                 type: {},
                 reason,
                 fromDate,
                 toDate,
             })
             .then((result) => {
-                this.props.history.push("/activeleaves");
+                this.props.history.push("/activeleaves/" + this.newMethod());
+            })
+            .catch(() => {
+                this.setState({ applyStatus: true });
             });
     };
+
+    newMethod() {
+        return this.props.match.params.id;
+    }
 
     render() {
         const { reason, fromDate, toDate, type } = this.state;
@@ -80,14 +87,11 @@ class ApplyLeave extends Component {
             h2 className = "panel-title" > APPLY Leaves < /h2>{" "} <
             /center>{" "} <
             /div>{" "} <
-            div className = "panel-body" >
-            <
-            h4 > { " " } <
-            Link to = "/list" > { " " } <
-            span className = "glyphicon glyphicon-th-list" > < /span> Employees
-            List { " " } <
-            /Link>{" "} <
-            /h4>{" "} <
+            div className = "panel-body" > { " " } {
+                this.state.applyStatus && ( <
+                    div className = "alert alert-warning" > Exceeds Max Duration < /div>
+                )
+            } { " " } <
             form onSubmit = { this.onSubmit } >
             <
             div className = "form-group" >

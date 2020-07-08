@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 class Approved extends Component {
     constructor(props) {
@@ -10,10 +10,12 @@ class Approved extends Component {
         };
     }
     componentDidMount() {
-        axios.get("/leaves/approved").then((res) => {
-            this.setState({ leaves: res.data });
-            console.log(this.state.leaves);
-        });
+        axios
+            .get("/users/" + this.props.match.params.id + "/leaves/approved")
+            .then((res) => {
+                this.setState({ leaves: res.data });
+                console.log(this.state.leaves);
+            });
     }
     render() {
         return ( <
@@ -23,15 +25,20 @@ class Approved extends Component {
             <
             div className = "panel-heading" >
             <
+            center >
+            <
             h3 className = "panel-title" > Approved Leaves < /h3>{" "} <
-            h4 >
+            h6 >
             <
-            Link to = "/activeleaves" >
+            Link to = { `/show/${this.props.match.params.id}` } >
             <
-            span className = "glyphicon glyphicon-plus-sign" > < /span> Active
-            Leaves { " " } <
+            span className = "glyphicon glyphicon-plus-sign" > < /span>{" "}
+            Home { " " } <
             /Link>{" "} <
-            /h4>{" "} <
+            /h6>{" "}
+
+            <
+            /center>{" "} <
             /div>{" "} <
             div className = "panel-body" >
             <

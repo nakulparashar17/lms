@@ -9,7 +9,4 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       ddl-auto: update
     show-sql: true
-  security:
-    user:
-      name: 'rahul.jkt@jktech.com'
-      password: 'rahul123'
+ 

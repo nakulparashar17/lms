@@ -34,7 +34,7 @@ class ShowLeave extends Component {
                 duration,
             })
             .then((result) => {
-                this.props.history.push("/activeleaves");
+                this.props.history.push("/activeleavesemp/" + this.state.leave.users.id);
             });
     }
 
@@ -50,7 +50,9 @@ class ShowLeave extends Component {
                 duration,
             })
             .then((result) => {
-                this.props.history.push("/activeleaves");
+                this.props.history.push(
+                    "/activeleavesemp/" + this.state.leave.users.id
+                );
             });
     }
 
@@ -70,8 +72,8 @@ class ShowLeave extends Component {
             <
             h4 > { " " } <
             Link to = "/activeleaves" > { " " } <
-            span className = "glyphicon glyphicon-th-list" > < /span> Leaves
-            List { " " } <
+            span className = "glyphicon glyphicon-th-list" > < /span> Active
+            Leaves { " " } <
             /Link>{" "} <
             /h4>{" "} <
             dl >
@@ -79,12 +81,15 @@ class ShowLeave extends Component {
             dt > LEAVE ID: < /dt> <dd> {this.state.leave.id} </dd > { " " } <
             dt > LEAVE TYPE: < /dt>{" "} <
             dd > { this.state.leave.type.leave_name } < /dd> <dt> REASON: </dt > { " " } <
-            dd > { this.state.leave.reason } < /dd> <dt> FROM DATE: </dt > { " " } <
-            dd > { this.state.leave.fromDate } < /dd> <dt> TO DATE: </dt > { " " } <
+            dd > { this.state.leave.reason } < /dd>{" "} <
+            dt > FROM DATE(YY / MM / DD): < /dt>{" "} <
+            dd > { this.state.leave.fromDate } < /dd>{" "} <
+            dt > TO DATE(YY / MM / DD): < /dt>{" "} <
             dd > { this.state.leave.toDate } < /dd> <dt> DURATION: </dt > { " " } <
             dd > { this.state.leave.duration } < /dd> <dt> EMPLOYEE NAME: </dt > { " " } <
             dd > { " " } {
                 this.state.leave.users.first_name +
+                    " " +
                     this.state.leave.users.last_name
             } { " " } <
             /dd>{" "} <

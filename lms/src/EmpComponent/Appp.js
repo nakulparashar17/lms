@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 class Appp extends Component {
     constructor(props) {
@@ -11,7 +11,7 @@ class Appp extends Component {
     }
 
     componentDidMount() {
-        axios.get("/users").then((res) => {
+        axios.get("/manager/" + this.props.match.params.id).then((res) => {
             this.setState({ employees: res.data });
             console.log(this.state.employees);
         });
@@ -28,21 +28,17 @@ class Appp extends Component {
             center >
             <
             h2 className = "panel-title" > EMPLOYEES LIST < /h2>{" "} <
+            h6 >
+            <
+            Link to = { `/show/${this.props.match.params.id}` } >
+            <
+            span className = "glyphicon glyphicon-plus-sign" > < /span> Home{" "} <
+            /Link>{" "} <
+            /h6>{" "} <
             /center>{" "} <
             /div>{" "} <
             div className = "panel-body" >
             <
-            ul className = "navbar-nav" >
-            <
-            li >
-            <
-            Link to = "/activeleaves" >
-            <
-            span className = "glyphicon glyphicon-plus-sign" > < /span>{" "}
-            Active Leaves { " " } <
-            /Link>{" "} <
-            /li>{" "} <
-            /ul>{" "} <
             table className = "table table-stripe" >
             <
             thead >
@@ -51,6 +47,7 @@ class Appp extends Component {
             <
             th > EMPLOYEE ID < /th> <th>EMPLOYEE NAME </th > { " " } <
             th > EMPLOYEE EMAIL < /th> <th> MANAGER ID </th > { " " } <
+            th > MANAGE LEAVES < /th>{" "} <
             /tr>{" "} <
             /thead>{" "} <
             tbody > { " " } {
@@ -58,12 +55,12 @@ class Appp extends Component {
                     tr >
                     <
                     td > { c.id } < /td>{" "} <
+                    td > { c.first_name + " " + c.last_name } < /td>{" "} <
+                    td > { c.email } < /td> <td> {c.lineManager} </td > { " " } <
                     td >
                     <
-                    Link to = { `/show/${c.id}` } > { " " } { c.first_name + " " + c.last_name } { " " } <
-                    /Link>{" "} <
+                    Link to = { `/activeleavesemp/${c.id}` } > manage < /Link>{" "} <
                     /td>{" "} <
-                    td > { c.email } < /td> <td> {c.lineManager} </td > { " " } <
                     /tr>
                 ))
             } { " " } <

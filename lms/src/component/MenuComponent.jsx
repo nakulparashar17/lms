@@ -2,18 +2,17 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import AuthenticationService from "../service/AuthenticationService";
 class MenuComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: this.props.match.params.id,
+    };
+  }
   render() {
     const isUserLoggedIn = AuthenticationService.isUserLoggedIn();
     return (
       <header>
         <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-          <ul className="navbar-nav">
-            <li>
-              <Link className="nav-link" to="/home">
-                Home
-              </Link>
-            </li>
-          </ul>
           <ul className="navbar-nav navbar-collapse justify-content-end">
             {!isUserLoggedIn && (
               <li>

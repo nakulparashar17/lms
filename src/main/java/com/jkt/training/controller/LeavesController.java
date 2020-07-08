@@ -60,6 +60,21 @@ public class LeavesController {
 		return leaves;
 	}
 	
+	@GetMapping("/users/{id}/leaves/active")
+	public List<Leaves> getAllUserActiveLeaves(@PathVariable String id){
+		return service.getAllUserActiveLeaves(id);
+	}
+	
+	@GetMapping("/users/{id}/leaves/approved")
+	public List<Leaves> getAllUserApprovedLeaves(@PathVariable String id){
+		return service.getAllUserApprovedLeaves(id);
+	}
+	
+	@GetMapping("/users/{id}/leaves/rejected")
+	public List<Leaves> getAllUserRejectedLeaves(@PathVariable String id){
+		return service.getAllUserRejectedLeaves(id);
+	}
+	
 	@GetMapping("/leaves/active")
 	public List<Leaves> getAllActiveLeaves(){
 		return service.getAllActiveLeaves();
@@ -74,11 +89,12 @@ public class LeavesController {
 	public List<Leaves> getAllRejectedLeaves(){
 		return service.getAllRejectedLeaves();
 	}
+
 	
 	@PostMapping(path = "/leaves/{typeid}",consumes = "application/json")
 	public ResponseEntity<Leaves> applyLeaves(@Valid @RequestBody Leaves leaves,@PathVariable int typeid)throws URISyntaxException{
 		Leaves result=service.applyLeaves(leaves,typeid);
-		return ResponseEntity.created(new URI("/api/leaves"+result.getId())).body(result);
+		return ResponseEntity.created(new URI("/leaves"+result.getId())).body(result);
 
 	}
 	
@@ -86,13 +102,7 @@ public class LeavesController {
 	@PostMapping(path = "/users/{id}/leaves/{typeid}",consumes = "application/json")
 	public ResponseEntity<Leaves> applyEmployeeLeaves(@Valid @RequestBody Leaves leaves,@PathVariable String id,@PathVariable int typeid)throws URISyntaxException{
 		Leaves result=service.applyLeavesUser(leaves,typeid,id);
-		return ResponseEntity.created(new URI("/api/leaves"+result.getId())).body(result);
-	}
-	
-	@PostMapping(path = "/users/{id}/leaves",consumes = "application/json")
-	public ResponseEntity<Leaves> applyEmployeeLeave(@Valid @RequestBody Leaves leaves,@PathVariable String id)throws URISyntaxException{
-		Leaves result=service.applyLeavesUsers(leaves,id);
-		return ResponseEntity.created(new URI("/api/leaves"+result.getId())).body(result);
+		return ResponseEntity.created(new URI("/leaves"+result.getId())).body(result);
 	}
 	
 	@PutMapping(path = "/leaves/{l_id}",consumes = "application/json")

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import AuthenticationService from "../service/AuthenticationService";
 
 class Login extends Component {
   constructor(props) {
@@ -26,11 +27,16 @@ class Login extends Component {
       .post("/login", {
         id,
         password,
+        headers: { authorization: AuthenticationService.createBasicAuthToken(id, password) },
       })
       .then((result) => {
-        this.props.history.push("/home");
-      })
-      .catch(() => {
+        AuthenticationService.registerSuccessfulLogin(
+            this.state.id,
+            this.state.password);
+
+            this.props.history.push(`/show/${id}`);
+      }) 
+       .catch(() => {
         this.setState({ showSuccessMessage: false });
         this.setState({ hasLoginFailed: true });
       });
@@ -53,22 +59,20 @@ class Login extends Component {
             {this.state.showSuccessMessage && <div> Login Sucessful </div>}{" "}
             {/*<ShowLoginSuccessMessage showSuccessMessage={this.state.showSuccessMessage}/>*/}{" "}
             <form onSubmit={this.onSubmit}>
-              UserName:{" "}
+              EMPLOYEE CODE:{" "}
               <input
                 type="text"
                 name="id"
                 value={id}
                 onChange={this.onChange}
               />{" "}
-              <br> </br> <br> </br>
-              Password:{" "}
+              PASSWORD:{" "}
               <input
                 type="password"
                 name="password"
                 value={password}
                 onChange={this.onChange}
               />{" "}
-              <br> </br> <br> </br>{" "}
               <button type="submit" class="btn btn-secondary">
                 {" "}
                 Submit{" "}

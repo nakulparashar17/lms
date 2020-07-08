@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 class Home extends Component {
-    state = {};
+    constructor(props) {
+        super(props);
+        this.state = {
+            id: this.props.match.params.id,
+        };
+    }
     render() {
         return ( <
             div >
@@ -17,8 +22,9 @@ class Home extends Component {
             <
             li > { " " } <
             Link className = "nav-link"
-            to = "/list" > { " " }
-            Employees List { " " } <
+            to = { `/show/${this.state.id}` } >
+            { " " }
+            Employee Details { " " } <
             /Link>{" "} <
             /li>{" "} <
             /ul>{" "} <

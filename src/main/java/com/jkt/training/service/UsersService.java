@@ -24,6 +24,11 @@ public class UsersService {
 		return userrepo.findAll();
 	}
 	
+  	public List<Users> getAllUsersManagerId(String id)
+	{
+		return userrepo.getAllUsersManagerId(id);
+	}
+	
 	public Users findById(String id)
 	{
 		Optional<Users> result = userrepo.findById(id);

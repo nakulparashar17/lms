@@ -52,32 +52,6 @@ public class LeavesService {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public Leaves applyLeavesUsers(Leaves leaves,String uid) {
-		if(!leaves.getFromDate().equals(null)&&!leaves.getToDate().equals(null)
-			&&!leaves.getReason().equals(null)&&!leaves.getType().equals(null)) {
-				int duration=leaves.getToDate().getDate()-leaves.getFromDate().getDate();
-				leaves.setDuration(duration+1);
-				leaves.setTaken(duration+1);
-				Leaves_Types t=leaves.getType();
-				System.out.println(t.getLeave_name());
-				Optional<Users> user=urepo.findById(uid);
-				Users u=user.get();
-				if(t.getMax_count()<duration) {
-					throw new NotFoundException("exceed the fix count(not applied)!!");
-				}
-				else {	
-					leaves.setUsers(u);
-					leaves.setType(t);
-				leaves.setActive(true);
-				return repository.save(leaves);
-				}
-		}
-		else {
-			throw new NotFoundException("Some field data is missing!!");
-		}
-	}
-	
-	@SuppressWarnings("deprecation")
 	public Leaves applyLeavesUser(Leaves leaves,int typeid,String uid) {
 		if(!leaves.getFromDate().equals(null)&&!leaves.getToDate().equals(null)
 			&&!leaves.getReason().equals(null)&&!leaves.getType().equals(null)) {
@@ -133,6 +107,11 @@ public class LeavesService {
 		 return repository.getAllActiveLeaves();
 	}
 	
+
+	public List<Leaves> getAllUserActiveLeaves(String id) {
+		 return repository.getAllUserActiveLeaves(id);
+	}
+	
 	public void deleteLeaves(int id) {
 		if(repository.existsById(id)) 
 			repository.deleteById(id);
@@ -174,7 +153,16 @@ public class LeavesService {
 	public List<Leaves> getAllApprovedLeaves(){
 		return repository.getAllApprovedLeaves();
 	}
+	
+	public List<Leaves> getAllUserApprovedLeaves(String id){
+		return repository.getAllUserApprovedLeaves(id);
+	}
+	
 	public List<Leaves> getAllRejectedLeaves(){
 		return repository.getAllRejectedLeaves();
+	}
+	
+	public List<Leaves> getAllUserRejectedLeaves(String id){
+		return repository.getAllUserRejectedLeaves(id);
 	}
 }

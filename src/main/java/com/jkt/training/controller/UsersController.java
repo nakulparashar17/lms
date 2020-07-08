@@ -40,6 +40,12 @@ public class UsersController {
 		}
 		return user;
 	}
+	
+	@GetMapping("/manager/{id}")
+	public List<Users> getUserbyManagerId(@PathVariable String id)
+	{
+		return userser.getAllUsersManagerId(id);
+	}
 
 	@PostMapping(path="/users",consumes = "application/json")
 	public String addUsers(@RequestBody Users user)
