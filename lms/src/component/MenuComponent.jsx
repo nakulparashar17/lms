@@ -13,6 +13,7 @@ class MenuComponent extends Component {
     return (
       <header>
         <nav className="navbar navbar-expand-md navbar-dark bg-dark">
+          <h3 className="navbar-nav navbar-text"> Leave Management App</h3>
           <ul className="navbar-nav navbar-collapse justify-content-end">
             {!isUserLoggedIn && (
               <li>

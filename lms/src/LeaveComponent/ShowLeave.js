@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 
 class ShowLeave extends Component {
     constructor(props) {
@@ -34,7 +33,9 @@ class ShowLeave extends Component {
                 duration,
             })
             .then((result) => {
-                this.props.history.push("/activeleavesemp/" + this.state.leave.users.id);
+                this.props.history.push(
+                    "/activeleavesemp/" + this.state.leave.users.id
+                );
             });
     }
 
@@ -70,12 +71,6 @@ class ShowLeave extends Component {
             /div>{" "} <
             div className = "panel-body" >
             <
-            h4 > { " " } <
-            Link to = "/activeleaves" > { " " } <
-            span className = "glyphicon glyphicon-th-list" > < /span> Active
-            Leaves { " " } <
-            /Link>{" "} <
-            /h4>{" "} <
             dl >
             <
             dt > LEAVE ID: < /dt> <dd> {this.state.leave.id} </dd > { " " } <
