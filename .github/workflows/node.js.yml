@@ -24,6 +24,11 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: Install Packages
+      run: |
+        sudo rm -rf package-lock.json
+        sudo ls -la
+        npm update
+    - name: Install Packages
       run: npm install
     - name: Deploy to GH Pages
       run: npm run deploy
