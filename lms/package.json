@@ -15,6 +15,12 @@
         "react-scripts": "3.4.1",
         "reactstrap": "^8.5.1"
     },
+    
+     "repository": {
+      "type": "git",
+      "url": "https://github.com/nakulparashar17/lms.git"
+    },
+    
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
@@ -37,14 +43,11 @@
             "last 1 safari version"
         ]
     },
+    
     "devDependencies": {
         "bootstrap": "^4.5.0"
     },
-    "repository" : {
-    "type" : "git",
-    "url": "ssh://git@github.com/nakulparashar17/lms.git"
-  },
-    
+   
     "publishConfig": {
     "registry":"https://npm.pkg.github.com/"
   }
