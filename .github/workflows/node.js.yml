@@ -30,8 +30,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ github.token }}
       run: |
-        git config --global user.email "nakul.ymca@gmail.com>"
-        git config --global user.name "nakulparashar17>"
-        git remote set-url origin https://GITHUB_TOKEN>@github.com/nakulparashar17>/lms>.git
+        git config --global user.email "nakul.ymca@gmail.com"
+        git config --global user.name "nakulparashar17"
+        git remote set-url origin https://GITHUB_TOKEN@github.com/nakulparashar17/lms.git
         npm run deploy
    
