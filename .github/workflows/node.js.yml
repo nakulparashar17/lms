@@ -27,4 +27,5 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
+    - run:  npm login --registry=https://npm.pkg.github.com/nakulparashar17
     - run: npm publish
