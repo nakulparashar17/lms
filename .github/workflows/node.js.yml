@@ -16,14 +16,17 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x, 14.x]
-
+        node-version: [10.x]
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v1
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install
-    - run:  npm login --registry=https://npm.pkg.github.com/nakulparashar17
-    - run: npm publish
+    - name: Install Packages
+      run: npm install
+    - name: Deploy to GH Pages
+      run: |
+ 
+        git remote set-url origin https://${{github.token}}@github.com/nakulparashar17/lms>.git
+        npm run deploy
