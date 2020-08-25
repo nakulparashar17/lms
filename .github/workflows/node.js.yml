@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x]
+        node-version: [8.x, 10.x, 12.x]
     steps:
     - uses: actions/checkout@v1
     - name: Use Node.js ${{ matrix.node-version }}
@@ -26,7 +26,5 @@ jobs:
     - name: Install Packages
       run: npm install
     - name: Deploy to GH Pages
-      run: |
- 
-        git remote set-url origin https://${{github.token}}@github.com/nakulparashar17/lms>.git
-        npm run deploy
+      run: npm run deploy
+   
