@@ -23,10 +23,15 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Install Packages
-      run: npm update
+   
     - name: Install Packages
       run: npm install
     - name: Deploy to GH Pages
-      run: npm publish
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      run: |
+        git config --global user.email "nakul.ymca@gmail.com>"
+        git config --global user.name "nakulparashar17>"
+        git remote set-url origin https://GITHUB_TOKEN>@github.com/nakulparashar17>/lms>.git
+        npm run deploy
    
