@@ -39,5 +39,9 @@
     },
     "devDependencies": {
         "bootstrap": "^4.5.0"
-    }
+    },
+    
+    "publishConfig": {
+    "registry":"https://npm.pkg.github.com/"
+  }
 }
