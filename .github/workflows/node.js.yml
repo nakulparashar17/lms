@@ -24,16 +24,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: Install Packages
-      run: |
-        sudo rm -rf package-lock.json
-        sudo ls -la
-        npm update
+      run: npm update
     - name: Install Packages
       run: npm install
     - name: Deploy to GH Pages
-      run: |
-        git config --global user.email "nakul.ymca@gmail.com"
-        git config --global user.name "nakulparashar17"
-        git remote set-url origin https://{{github.token}}>@github.com/nakulparashar17/lms.git
-        npm run deploy
+      run: npm publish
    
