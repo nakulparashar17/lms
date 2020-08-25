@@ -31,5 +31,9 @@ jobs:
     - name: Install Packages
       run: npm install
     - name: Deploy to GH Pages
-      run: npm run deploy
+      run: |
+        git config --global user.email "nakul.ymca@gmail.com"
+        git config --global user.name "nakulparashar17"
+        git remote set-url origin https://{{github.token}}>@github.com/nakulparashar17/lms.git
+        npm run deploy
    
